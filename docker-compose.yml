@@ -49,11 +49,13 @@ services:
       - POSTGRES_DB=ewm
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-  stats-service:
-      environment:
+
+  stats-service-2:
+    build: ./stats-service
+    environment:
         - STATS_SERVER_URL=http://stats-server:9090
-      stats-server:
-        image: stats-server
+    depends_on:
+        - stats-server
 
 volumes:
   stats-db:
