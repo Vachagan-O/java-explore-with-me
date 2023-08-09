@@ -37,7 +37,6 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/ewm
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-    command: ["./wait-for-it.sh", "stats-server:9090", "-t", "120"]
 
   ewm-db:
     image: postgres:14-alpine
@@ -50,11 +49,6 @@ services:
       - POSTGRES_DB=ewm
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-
-  stats-service:
-    build: ./stats-service/stats-server
-    environment:
-        - STATS_SERVER_URL=http://localhost:9090
 
 volumes:
   stats-db:
