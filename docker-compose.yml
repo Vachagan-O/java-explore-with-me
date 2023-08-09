@@ -51,7 +51,7 @@ services:
       - POSTGRES_PASSWORD=root
 
   stats-service:
-    build: ./stats-service
+    build: ./stats-service/stats-server
     environment:
         - STATS_SERVER_URL=http://stats-server:9090
     depends_on:
