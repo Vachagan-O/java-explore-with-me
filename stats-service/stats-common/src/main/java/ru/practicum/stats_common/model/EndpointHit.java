@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -17,15 +18,19 @@ import java.util.Objects;
 @AllArgsConstructor
 public class EndpointHit {
     @NotBlank
+    @Size(max=100)
     String app;
 
     @NotBlank
+    @Size(max=100)
     String uri;
 
     @NotBlank
+    @Size(max=100)
     String ip;
 
     @NotBlank
+    @Size(max=100)
     String timestamp;
 
     @Override
