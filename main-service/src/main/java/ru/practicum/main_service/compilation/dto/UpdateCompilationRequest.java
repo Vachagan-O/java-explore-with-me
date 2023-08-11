@@ -2,7 +2,6 @@ package ru.practicum.main_service.compilation.dto;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import ru.practicum.main_service.MainCommonUtils;
 
 import javax.validation.constraints.Size;
 import java.util.List;
