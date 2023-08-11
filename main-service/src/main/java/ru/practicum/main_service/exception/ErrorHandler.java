@@ -43,6 +43,18 @@ public class ErrorHandler {
                 LocalDateTime.now().format(MainCommonUtils.DT_FORMATTER));
     }
 
+    @ExceptionHandler(TimeValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleValidationException(final TimeValidationException exception) {
+        log.error(exception.toString());
+        return new ApiError(HttpStatus.BAD_REQUEST.name(),
+                "Incorrectly made request.",
+                String.format("Filed: %s. Error: %s", Objects.requireNonNull(exception.getMessage()),
+                        exception.getMessage()),
+                getErrors(exception),
+                LocalDateTime.now().format(MainCommonUtils.DT_FORMATTER));
+    }
+
     @ExceptionHandler({MethodArgumentTypeMismatchException.class, ConstraintViolationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleValidationException(final RuntimeException exception) {
