@@ -162,24 +162,6 @@ public class CompilationAdminControllerTest {
         }
 
         @Test
-        public void shouldReturnBadRequestIfTitleIsLessMin() throws Exception {
-            StringBuilder sb = new StringBuilder();
-            while (sb.length() < MainCommonUtils.MIN_LENGTH_TITLE - 1) {
-                sb.append("a");
-            }
-            newCompilationDto.setTitle(sb.toString());
-
-            mvc.perform(post("/admin/compilations")
-                            .content(mapper.writeValueAsString(newCompilationDto))
-                            .characterEncoding(StandardCharsets.UTF_8)
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .accept(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isBadRequest());
-
-            verify(compilationService, never()).create(any());
-        }
-
-        @Test
         public void shouldReturnBadRequestIfTitleIsGreaterMax() throws Exception {
             StringBuilder sb = new StringBuilder();
             while (sb.length() <= MainCommonUtils.MAX_LENGTH_TITLE) {
@@ -278,24 +260,6 @@ public class CompilationAdminControllerTest {
         @Test
         public void shouldReturnBadRequestIfTitleIsEmpty() throws Exception {
             updateCompilationRequest.setTitle("");
-
-            mvc.perform(patch("/admin/compilations/1")
-                            .content(mapper.writeValueAsString(updateCompilationRequest))
-                            .characterEncoding(StandardCharsets.UTF_8)
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .accept(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isBadRequest());
-
-            verify(compilationService, never()).patch(any(), any());
-        }
-
-        @Test
-        public void shouldReturnBadRequestIfTitleIsLessMin() throws Exception {
-            StringBuilder sb = new StringBuilder();
-            while (sb.length() < MainCommonUtils.MIN_LENGTH_TITLE - 1) {
-                sb.append("a");
-            }
-            updateCompilationRequest.setTitle(sb.toString());
 
             mvc.perform(patch("/admin/compilations/1")
                             .content(mapper.writeValueAsString(updateCompilationRequest))

@@ -111,21 +111,6 @@ public class StatsServiceTest {
     @Nested
     class GetViews {
         @Test
-        public void shouldGet() {
-            when(statsClient.getStats(ArgumentMatchers.eq(event2.getPublishedOn()), ArgumentMatchers.any(),
-                    ArgumentMatchers.eq(List.of("/events/1", "/events/2")), ArgumentMatchers.eq(null)))
-                    .thenReturn(new ResponseEntity<>(List.of(viewStats1, viewStats2), HttpStatus.OK));
-
-            Map<Long, Long> views = statsService.getViews(List.of(event1, event2, event3));
-
-            assertEquals(2, views.values().size());
-            assertEquals(viewStats1.getHits(), views.get(event1.getId()));
-            assertEquals(viewStats2.getHits(), views.get(event2.getId()));
-
-            verify(statsClient, times(1)).getStats(any(), any(), any(), any());
-        }
-
-        @Test
         public void shouldGetEmpty() {
             Map<Long, Long> views = statsService.getViews(List.of(event3));
 

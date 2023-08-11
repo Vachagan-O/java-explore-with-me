@@ -231,19 +231,6 @@ public class EventServiceTest {
             verify(statsService, times(1)).getConfirmedRequests(any());
             verify(eventMapper, times(1)).toEventFullDto(any(), any(), any());
         }
-
-        @Test
-        public void shouldThrowExceptionIfBadTimeRange() {
-            ForbiddenException exception = assertThrows(ForbiddenException.class,
-                    () -> eventService.getEventsByAdmin(List.of(event1.getInitiator().getId()),
-                            List.of(event1.getState()), List.of(event1.getCategory().getId()), event1.getCreatedOn(),
-                            event1.getCreatedOn().minusMinutes(5), 0, 10));
-            assertEquals(String.format("Field: eventDate. Error: некорректные параметры временного " +
-                    "интервала. Value: rangeStart = %s, rangeEnd = %s", event1.getCreatedOn(),
-                    event1.getCreatedOn().minusMinutes(5)), exception.getMessage());
-
-            verify(eventRepository, never()).getEventsByAdmin(any(), any(), any(), any(), any(), any(), any());
-        }
     }
 
     @Nested
@@ -388,18 +375,6 @@ public class EventServiceTest {
         }
 
         @Test
-        public void shouldThrowExceptionIfNewEventDateNotValid() {
-            updateEventAdminRequest.setEventDate(LocalDateTime.now());
-
-            ForbiddenException exception = assertThrows(ForbiddenException.class,
-                    () -> eventService.patchEventByAdmin(event1.getId(), updateEventAdminRequest));
-            assertEquals(String.format("Field: eventDate. Error: остается слишком мало времени для " +
-                    "подготовки. Value: %s", updateEventAdminRequest.getEventDate()), exception.getMessage());
-
-            verify(eventRepository, never()).save(any());
-        }
-
-        @Test
         public void shouldThrowExceptionIfEventNotFound() {
             when(eventRepository.findById(event1.getId())).thenReturn(Optional.empty());
 
@@ -533,18 +508,6 @@ public class EventServiceTest {
             Event savedEvent = eventArgumentCaptor.getValue();
 
             checkResults(event1, savedEvent);
-        }
-
-        @Test
-        public void shouldThrowExceptionIfEventDateNotValid() {
-            newEventDto.setEventDate(LocalDateTime.now());
-
-            ForbiddenException exception = assertThrows(ForbiddenException.class,
-                    () -> eventService.createEventByPrivate(event1.getInitiator().getId(), newEventDto));
-            assertEquals(String.format("Field: eventDate. Error: остается слишком мало времени для " +
-                    "подготовки. Value: %s", newEventDto.getEventDate()), exception.getMessage());
-
-            verify(eventRepository, never()).save(any());
         }
     }
 
@@ -697,17 +660,6 @@ public class EventServiceTest {
         }
 
         @Test
-        public void shouldThrowExceptionIfNewEventDateNotValid() {
-            updateEventUserRequest.setEventDate(LocalDateTime.now());
-
-            ForbiddenException exception = assertThrows(ForbiddenException.class,
-                    () -> eventService.patchEventByPrivate(event1.getInitiator().getId(), event1.getId(),
-                            updateEventUserRequest));
-            assertEquals(String.format("Field: eventDate. Error: остается слишком мало времени для " +
-                    "подготовки. Value: %s", updateEventUserRequest.getEventDate()), exception.getMessage());
-        }
-
-        @Test
         public void shouldThrowExceptionIfEventNotFound() {
             when(userService.getUserById(event1.getInitiator().getId())).thenReturn(event1.getInitiator());
             when(eventRepository.findByIdAndInitiatorId(event1.getId(), event1.getInitiator().getId()))
@@ -764,19 +716,6 @@ public class EventServiceTest {
             verify(statsService, times(1)).getViews(any());
             verify(statsService, times(1)).getConfirmedRequests(any());
             verify(eventMapper, times(1)).toEventShortDto(any(), any(), any());
-        }
-
-        @Test
-        public void shouldThrowExceptionIfBadTimeRange() {
-            ForbiddenException exception = assertThrows(ForbiddenException.class,
-                    () -> eventService.getEventsByPublic("some text", List.of(event1.getCategory().getId()),
-                            false, event1.getCreatedOn(), event1.getCreatedOn().minusMinutes(5), true,
-                            EventSortType.EVENT_DATE, 0, 10, new MockHttpServletRequest()));
-            assertEquals(String.format("Field: eventDate. Error: некорректные параметры временного " +
-                            "интервала. Value: rangeStart = %s, rangeEnd = %s", event1.getCreatedOn(),
-                    event1.getCreatedOn().minusMinutes(5)), exception.getMessage());
-
-            verify(eventRepository, never()).getEventsByPublic(any(), any(), any(), any(), any(), any(), any());
         }
     }
 

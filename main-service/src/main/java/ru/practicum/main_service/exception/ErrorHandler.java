@@ -45,11 +45,11 @@ public class ErrorHandler {
 
     @ExceptionHandler(TimeValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiError handleValidationException(final TimeValidationException exception) {
+    public ApiError handleTimeValidationException(final TimeValidationException exception) {
         log.error(exception.toString());
         return new ApiError(HttpStatus.BAD_REQUEST.name(),
                 "Incorrectly made request.",
-                String.format("Filed: %s. Error: %s", Objects.requireNonNull(exception.getMessage()),
+                String.format("Field: %s. Error: %s", Objects.requireNonNull(exception.getMessage()),
                         exception.getMessage()),
                 getErrors(exception),
                 LocalDateTime.now().format(MainCommonUtils.DT_FORMATTER));
