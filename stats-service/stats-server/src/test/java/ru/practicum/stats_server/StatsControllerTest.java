@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.practicum.stats_common.CommonUtils;
+import ru.practicum.stats_common.StatsCommonUtils;
 import ru.practicum.stats_common.model.EndpointHit;
 import ru.practicum.stats_server.controller.StatsController;
 import ru.practicum.stats_server.service.StatsService;
@@ -19,9 +19,7 @@ import ru.practicum.stats_server.service.StatsService;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -55,7 +53,7 @@ public class StatsControllerTest {
 
         @Test
         public void shouldAdd() throws Exception {
-            mvc.perform(post(CommonUtils.HIT_ENDPOINT)
+            mvc.perform(post(StatsCommonUtils.HIT_ENDPOINT)
                             .content(mapper.writeValueAsString(endpointHit))
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -69,7 +67,7 @@ public class StatsControllerTest {
         public void shouldThrowExceptionIfAppIsNull() throws Exception {
             endpointHit.setApp(null);
 
-            mvc.perform(post(CommonUtils.HIT_ENDPOINT)
+            mvc.perform(post(StatsCommonUtils.HIT_ENDPOINT)
                             .content(mapper.writeValueAsString(endpointHit))
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -83,7 +81,7 @@ public class StatsControllerTest {
         public void shouldThrowExceptionIfAppIsEmpty() throws Exception {
             endpointHit.setApp("");
 
-            mvc.perform(post(CommonUtils.HIT_ENDPOINT)
+            mvc.perform(post(StatsCommonUtils.HIT_ENDPOINT)
                             .content(mapper.writeValueAsString(endpointHit))
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -97,7 +95,7 @@ public class StatsControllerTest {
         public void shouldThrowExceptionIfAppIsBlank() throws Exception {
             endpointHit.setApp(" ");
 
-            mvc.perform(post(CommonUtils.HIT_ENDPOINT)
+            mvc.perform(post(StatsCommonUtils.HIT_ENDPOINT)
                             .content(mapper.writeValueAsString(endpointHit))
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -111,7 +109,7 @@ public class StatsControllerTest {
         public void shouldThrowExceptionIfUriIsNull() throws Exception {
             endpointHit.setUri(null);
 
-            mvc.perform(post(CommonUtils.HIT_ENDPOINT)
+            mvc.perform(post(StatsCommonUtils.HIT_ENDPOINT)
                             .content(mapper.writeValueAsString(endpointHit))
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -125,7 +123,7 @@ public class StatsControllerTest {
         public void shouldThrowExceptionIfUriIsEmpty() throws Exception {
             endpointHit.setUri("");
 
-            mvc.perform(post(CommonUtils.HIT_ENDPOINT)
+            mvc.perform(post(StatsCommonUtils.HIT_ENDPOINT)
                             .content(mapper.writeValueAsString(endpointHit))
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -139,7 +137,7 @@ public class StatsControllerTest {
         public void shouldThrowExceptionIfUriIsBlank() throws Exception {
             endpointHit.setUri(" ");
 
-            mvc.perform(post(CommonUtils.HIT_ENDPOINT)
+            mvc.perform(post(StatsCommonUtils.HIT_ENDPOINT)
                             .content(mapper.writeValueAsString(endpointHit))
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -153,7 +151,7 @@ public class StatsControllerTest {
         public void shouldThrowExceptionIfIpIsNull() throws Exception {
             endpointHit.setIp(null);
 
-            mvc.perform(post(CommonUtils.HIT_ENDPOINT)
+            mvc.perform(post(StatsCommonUtils.HIT_ENDPOINT)
                             .content(mapper.writeValueAsString(endpointHit))
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -167,7 +165,7 @@ public class StatsControllerTest {
         public void shouldThrowExceptionIfIpIsEmpty() throws Exception {
             endpointHit.setIp("");
 
-            mvc.perform(post(CommonUtils.HIT_ENDPOINT)
+            mvc.perform(post(StatsCommonUtils.HIT_ENDPOINT)
                             .content(mapper.writeValueAsString(endpointHit))
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -181,7 +179,7 @@ public class StatsControllerTest {
         public void shouldThrowExceptionIfIpIsBlank() throws Exception {
             endpointHit.setIp(" ");
 
-            mvc.perform(post(CommonUtils.HIT_ENDPOINT)
+            mvc.perform(post(StatsCommonUtils.HIT_ENDPOINT)
                             .content(mapper.writeValueAsString(endpointHit))
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -195,7 +193,7 @@ public class StatsControllerTest {
         public void shouldThrowExceptionIfTimestampIsNull() throws Exception {
             endpointHit.setTimestamp(null);
 
-            mvc.perform(post(CommonUtils.HIT_ENDPOINT)
+            mvc.perform(post(StatsCommonUtils.HIT_ENDPOINT)
                             .content(mapper.writeValueAsString(endpointHit))
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -209,7 +207,7 @@ public class StatsControllerTest {
         public void shouldThrowExceptionIfTimestampIsEmpty() throws Exception {
             endpointHit.setTimestamp("");
 
-            mvc.perform(post(CommonUtils.HIT_ENDPOINT)
+            mvc.perform(post(StatsCommonUtils.HIT_ENDPOINT)
                             .content(mapper.writeValueAsString(endpointHit))
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -223,7 +221,7 @@ public class StatsControllerTest {
         public void shouldThrowExceptionIfTimestampIsBlank() throws Exception {
             endpointHit.setTimestamp(" ");
 
-            mvc.perform(post(CommonUtils.HIT_ENDPOINT)
+            mvc.perform(post(StatsCommonUtils.HIT_ENDPOINT)
                             .content(mapper.writeValueAsString(endpointHit))
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -246,7 +244,7 @@ public class StatsControllerTest {
 
         @Test
         public void shouldGet() throws Exception {
-            mvc.perform(get(CommonUtils.STATS_ENDPOINT + "?start={start}&end={end}&uris={uris}&uris={uris}&unique={unique}",
+            mvc.perform(get(StatsCommonUtils.STATS_ENDPOINT + "?start={start}&end={end}&uris={uris}&uris={uris}&unique={unique}",
                             start, end, uris.get(0), uris.get(1), unique)
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -259,7 +257,7 @@ public class StatsControllerTest {
 
         @Test
         public void shouldGetWithDefaultUnique() throws Exception {
-            mvc.perform(get(CommonUtils.STATS_ENDPOINT + "?start={start}&end={end}&uris={uris}&uris={uris}",
+            mvc.perform(get(StatsCommonUtils.STATS_ENDPOINT + "?start={start}&end={end}&uris={uris}&uris={uris}",
                             start, end, uris.get(0), uris.get(1))
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -272,7 +270,7 @@ public class StatsControllerTest {
 
         @Test
         public void shouldGetWithoutUris() throws Exception {
-            mvc.perform(get(CommonUtils.STATS_ENDPOINT + "?start={start}&end={end}&unique={unique}",
+            mvc.perform(get(StatsCommonUtils.STATS_ENDPOINT + "?start={start}&end={end}&unique={unique}",
                             start, end, unique)
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -285,7 +283,7 @@ public class StatsControllerTest {
 
         @Test
         public void shouldGetWithoutUrisAndUnique() throws Exception {
-            mvc.perform(get(CommonUtils.STATS_ENDPOINT + "?start={start}&end={end}",
+            mvc.perform(get(StatsCommonUtils.STATS_ENDPOINT + "?start={start}&end={end}",
                             start, end, unique)
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -300,7 +298,7 @@ public class StatsControllerTest {
         public void shouldThrowExceptionIfStartNotValid() throws Exception {
             start = "2020-01-01T00:00:00";
 
-            mvc.perform(get(CommonUtils.STATS_ENDPOINT + "?start={start}&end={end}&uris={uris}&uris={uris}&unique={unique}",
+            mvc.perform(get(StatsCommonUtils.STATS_ENDPOINT + "?start={start}&end={end}&uris={uris}&uris={uris}&unique={unique}",
                             start, end, uris.get(0), uris.get(1), unique)
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -315,7 +313,7 @@ public class StatsControllerTest {
         public void shouldThrowExceptionIfEndNotValid() throws Exception {
             end = "2035-01-01T00:00:00";
 
-            mvc.perform(get(CommonUtils.STATS_ENDPOINT + "?start={start}&end={end}&uris={uris}&uris={uris}&unique={unique}",
+            mvc.perform(get(StatsCommonUtils.STATS_ENDPOINT + "?start={start}&end={end}&uris={uris}&uris={uris}&unique={unique}",
                             start, end, uris.get(0), uris.get(1), unique)
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -330,7 +328,7 @@ public class StatsControllerTest {
         public void shouldThrowExceptionIfStartAfterEnd() throws Exception {
             end = "2005-01-01 00:00:00";
 
-            mvc.perform(get(CommonUtils.STATS_ENDPOINT + "?start={start}&end={end}&uris={uris}&uris={uris}&unique={unique}",
+            mvc.perform(get(StatsCommonUtils.STATS_ENDPOINT + "?start={start}&end={end}&uris={uris}&uris={uris}&unique={unique}",
                             start, end, uris.get(0), uris.get(1), unique)
                             .characterEncoding(StandardCharsets.UTF_8)
                             .contentType(MediaType.APPLICATION_JSON)
