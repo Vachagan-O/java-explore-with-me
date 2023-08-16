@@ -37,7 +37,7 @@ services:
       - ewm-db
       - stats-server
     environment:
-      - STATS_SERVER_URL=http:http://localhost:8080
+      - STATS_SERVER_URL=http://stats-server:9090
       - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/ewm
       - SPRING_DATASOURCE_DRIVERCLASSNAME=org.postgresql.Driver
       - SPRING_DATASOURCE_USERNAME=root
