@@ -10,6 +10,3 @@
 ## Endpoints
 - [Техническое задание для API основного сервиса](./ewm-main-service-spec.json)
 - [Техническое задание для API сервиса статистики](./ewm-stats-service-spec.json)
-
-
-[Ссылка на PR](https://github.com/Vachagan-O/java-explore-with-me/pull/5)
